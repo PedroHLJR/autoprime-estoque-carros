@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AutoPrime — Estoque de Carros</title>
+  <!-- CSS externo separado do HTML (boas práticas) -->
+  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="Estoque de veículos seminovos da AutoPrime. Encontre seu próximo carro por modelo, marca, ano, preço e mais." />
+</head>
+<body>
+  <!-- Link de acessibilidade: permite pular direto pro conteúdo com teclado -->
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <!-- Cabeçalho fixo com efeito glassmorphism via CSS -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="#topo" aria-label="AutoPrime, início">
+        <span aria-hidden="true">🚗</span>
+        <strong>AutoPrime</strong>
+      </a>
+
+      <!-- Nav oculta em mobile, exibida em telas >= 720px via media query -->
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="#estoque" class="nav-link is-active">Estoque</a>
+        <a href="#sobre" class="nav-link">Sobre</a>
+        <a href="#contato" class="nav-link">Contato</a>
+      </nav>
+
+      <a class="btn btn-primary header-cta"
+         href="https://wa.me/5532988772482?text=Ol%C3%A1!%20Quero%20anunciar%20meu%20carro."
+         target="_blank" rel="noopener noreferrer">Anunciar</a>
+    </div>
+  </header>
+
+  <!-- Seção hero com busca e filtros avançados -->
+  <section class="hero" id="topo">
+    <div class="container hero-inner">
+      <h1>Encontre seu próximo carro</h1>
+      <p class="subtitle">Seminovos com laudo aprovado, IPVA em dia e garantia.</p>
+
+      <!-- Formulário de busca (sem JS nesta versão — projeto de estudo de HTML/CSS) -->
+      <form class="searchbar" role="search" aria-label="Buscar no estoque" action="#estoque">
+        <label class="sr-only" for="q">Buscar por modelo, marca ou código</label>
+        <input id="q" name="q" type="search"
+               placeholder="Busque por modelo, marca ou código (ex.: Corolla, HB20, AP-001)" />
+
+        <label class="sr-only" for="ordenar">Ordenar</label>
+        <select id="ordenar" name="ordenar" aria-label="Ordenar resultados">
+          <option value="relevancia">Ordenar por: Relevância</option>
+          <option value="preco_asc">Preço (menor → maior)</option>
+          <option value="preco_desc">Preço (maior → menor)</option>
+          <option value="ano_desc">Ano (mais novo → mais antigo)</option>
+          <option value="km_asc">Km (menor → maior)</option>
+        </select>
+
+        <button type="submit" class="btn btn-primary">Buscar</button>
+      </form>
+
+      <!-- Filtros avançados usando <details>/<summary> — sem JavaScript -->
+      <details class="filters">
+        <summary>Filtros</summary>
+        <form class="filters-grid" aria-label="Filtros do estoque" action="#estoque">
+          <fieldset>
+            <legend>Marca</legend>
+            <label><input type="checkbox" /> Toyota</label>
+            <label><input type="checkbox" /> Honda</label>
+            <label><input type="checkbox" /> Chevrolet</label>
+            <label><input type="checkbox" /> Fiat</label>
+            <label><input type="checkbox" /> Volkswagen</label>
+            <label><input type="checkbox" /> Ford</label>
+            <label><input type="checkbox" /> Jeep</label>
+            <label><input type="checkbox" /> Hyundai</label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Câmbio</legend>
+            <label><input type="checkbox" /> Automático</label>
+            <label><input type="checkbox" /> Manual</label>
+            <label><input type="checkbox" /> CVT</label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Combustível</legend>
+            <label><input type="checkbox" /> Flex</label>
+            <label><input type="checkbox" /> Gasolina</label>
+            <label><input type="checkbox" /> Diesel</label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Ano</legend>
+            <label class="inline">
+              <span>de</span>
+              <input type="number" inputmode="numeric" placeholder="2016" min="1990" />
+            </label>
+            <label class="inline">
+              <span>até</span>
+              <input type="number" inputmode="numeric" placeholder="2025" min="1990" />
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Preço (R$)</legend>
+            <label class="inline">
+              <span>Mín.</span>
+              <input type="number" inputmode="numeric" placeholder="30000" />
+            </label>
+            <label class="inline">
+              <span>Máx.</span>
+              <input type="number" inputmode="numeric" placeholder="250000" />
+            </label>
+          </fieldset>
+
+          <div class="filters-actions">
+            <button type="reset" class="btn btn-ghost">Limpar</button>
+            <button type="submit" class="btn btn-outline">Aplicar</button>
+          </div>
+        </form>
+      </details>
+    </div>
+  </section>
+
+  <!-- Conteúdo principal: grade de cards dos carros -->
+  <main id="conteudo" class="container inventory">
+    <header class="inventory-header" id="estoque" aria-label="Cabeçalho do estoque">
+      <h2>Estoque</h2>
+      <p class="muted">Mostrando <strong>8</strong> carros disponíveis</p>
+    </header>
+
+    <!-- Grade responsiva criada com CSS Grid (auto-fit + minmax) -->
+    <section class="grid-cars" aria-label="Lista de carros">
+
+      <!-- Card 1 — Toyota Corolla -->
+      <article class="car-card" id="car-ap-001">
+        <a class="car-media" href="#contato" aria-label="Ver Toyota Corolla 2022, código AP-001">
+          <img
+            src="https://commons.wikimedia.org/wiki/Special:FilePath/2019_Toyota_Corolla_Altis_(front).jpg?width=1280"
+            alt="Toyota Corolla Altis (E210), vista frontal"
+            loading="lazy"
+            referrerpolicy="no-referrer"
+          />
+          <span class="badge status">Seminovo</span>
+          <span class="badge highlight">1 ano de garantia</span>
+        </a>
+        <div class="car-body">
+          <div class="car-head">
+            <h3 class="car-title">Toyota Corolla Altis 2.0</h3>
+            <span class="sku">AP-001</span>
+          </div>
+          <p class="car-meta">2022 • 38.200 km • Automático • Flex</p>
+          <ul class="car-tags">
+            <li>IPVA 2025 pago</li>
+            <li>Único dono</li>
+            <li>Laudo aprovado</li>
+          </ul>
+          <div class="car-foot">
+            <div class="car-price">
+              <strong>R$ 119.900</strong>
+              <span>à vista</span>
+            </div>
+            <div class="car-actions">
+              <a class="btn btn-primary" target="_blank" rel="noopener noreferrer"
+                 href="https://wa.me/5532988772482?text=Tenho%20interesse%20no%20Corolla%202022%20(AP-001)">WhatsApp</a>
+              <a class="btn btn-ghost" href="#contato">Detalhes</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2 — Honda Civic -->
+      <article class="car-card" id="car-ap-002">
+        <a class="car-media" href="#contato" aria-label="Ver Honda Civic 2019, código AP-002">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/2019_Honda_Civic_LX%2C_Front_Left%2C_11-03-2020.jpg/1280px-2019_Honda_Civic_LX%2C_Front_Left%2C_11-03-2020.jpg"
+               alt="Honda Civic 2019, vista 3/4 dianteira" loading="lazy" />
+          <span class="badge status">Seminovo</span>
+        </a>
+        <div class="car-body">
+          <div class="car-head">
+            <h3 class="car-title">Honda Civic Touring 1.5 Turbo</h3>
+            <span class="sku">AP-002</span>
+          </div>
+          <p class="car-meta">2019 • 52.000 km • Automático • Gasolina</p>
+          <ul class="car-tags">
+            <li>Teto solar</li>
+            <li>Chave presencial</li>
+            <li>Revisões em dia</li>
+          </ul>
+          <div class="car-foot">
+            <div class="car-price"><strong>R$ 109.500</strong><span>à vista</span></div>
+            <div class="car-actions">
+              <a class="btn btn-primary" target="_blank" rel="noopener noreferrer"
+                 href="https://wa.me/5532988772482?text=Tenho%20interesse%20no%20Civic%202019%20(AP-002)">WhatsApp</a>
+              <a class="btn btn-ghost" href="#contato">Detalhes</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3 — Chevrolet Onix -->
+      <article class="car-card" id="car-ap-003">
+        <a class="car-media" href="#contato" aria-label="Ver Chevrolet Onix 2021, código AP-003">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Chevrolet_Onix_Mk2_RS_2020_in_Maldonado_-_front.jpg/1280px-Chevrolet_Onix_Mk2_RS_2020_in_Maldonado_-_front.jpg"
+               alt="Chevrolet Onix RS, vista 3/4 dianteira" loading="lazy" />
+          <span class="badge status">Seminovo</span>
+        </a>
+        <div class="car-body">
+          <div class="car-head">
+            <h3 class="car-title">Chevrolet Onix LT 1.0</h3>
+            <span class="sku">AP-003</span>
+          </div>
+          <p class="car-meta">2021 • 29.800 km • Manual • Flex</p>
+          <ul class="car-tags">
+            <li>Central multimídia</li>
+            <li>Câmera de ré</li>
+          </ul>
+          <div class="car-foot">
+            <div class="car-price"><strong>R$ 66.900</strong><span>à vista</span></div>
+            <div class="car-actions">
+              <a class="btn btn-primary" target="_blank" rel="noopener noreferrer"
+                 href="https://wa.me/5532988772482?text=Tenho%20interesse%20no%20Onix%202021%20(AP-003)">WhatsApp</a>
+              <a class="btn btn-ghost" href="#contato">Detalhes</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4 — Fiat Toro -->
+      <article class="car-card" id="car-ap-004">
+        <a class="car-media" href="#contato" aria-label="Ver Fiat Toro 2020, código AP-004">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/2019_Fiat_Toro_2.0_Volcano_4x4.jpg/1280px-2019_Fiat_Toro_2.0_Volcano_4x4.jpg"
+               alt="Fiat Toro Volcano 2.0 Diesel 4x4, vista 3/4 dianteira" loading="lazy" />
+          <span class="badge status">Seminovo</span>
+          <span class="badge highlight">Garantia motor/câmbio</span>
+        </a>
+        <div class="car-body">
+          <div class="car-head">
+            <h3 class="car-title">Fiat Toro Volcano 2.0 Diesel 4x4</h3>
+            <span class="sku">AP-004</span>
+          </div>
+          <p class="car-meta">2020 • 72.300 km • Automático • Diesel</p>
+          <ul class="car-tags">
+            <li>4x4</li>
+            <li>Bancos em couro</li>
+            <li>Revisada</li>
+          </ul>
+          <div class="car-foot">
+            <div class="car-price"><strong>R$ 142.900</strong><span>à vista</span></div>
+            <div class="car-actions">
+              <a class="btn btn-primary" target="_blank" rel="noopener noreferrer"
+                 href="https://wa.me/5532988772482?text=Tenho%20interesse%20na%20Toro%202020%20(AP-004)">WhatsApp</a>
+              <a class="btn btn-ghost" href="#contato">Detalhes</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 5 — Volkswagen T-Cross -->
+      <article class="car-card" id="car-ap-005">
+        <a class="car-media" href="#contato" aria-label="Ver VW T-Cross 2021, código AP-005">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/2019_Volkswagen_T-Cross.jpg/1280px-2019_Volkswagen_T-Cross.jpg"
+               alt="Volkswagen T-Cross Highline, vista 3/4 dianteira" loading="lazy" />
+          <span class="badge status">Seminovo</span>
+        </a>
+        <div class="car-body">
+          <div class="car-head">
+            <h3 class="car-title">Volkswagen T-Cross Highline 1.4 TSI</h3>
+            <span class="sku">AP-005</span>
+          </div>
+          <p class="car-meta">2021 • 41.900 km • Automático • Flex</p>
+          <ul class="car-tags">
+            <li>ACC</li>
+            <li>Sensor frontal/traseiro</li>
+          </ul>
+          <div class="car-foot">
+            <div class="car-price"><strong>R$ 118.400</strong><span>à vista</span></div>
+            <div class="car-actions">
+              <a class="btn btn-primary" target="_blank" rel="noopener noreferrer"
+                 href="https://wa.me/5532988772482?text=Tenho%20interesse%20no%20T-Cross%202021%20(AP-005)">WhatsApp</a>
+              <a class="btn btn-ghost" href="#contato">Detalhes</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 6 — Ford Ranger -->
+      <article class="car-card" id="car-ap-006">
+        <a class="car-media" href="#contato" aria-label="Ver Ford Ranger 2018, código AP-006">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg/1280px-2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg"
+               alt="Ford Ranger XLT 3.2 4x4, vista 3/4 dianteira" loading="lazy" />
+          <span class="badge status">Seminovo</span>
+        </a>
+        <div class="car-body">
+          <div class="car-head">
+            <h3 class="car-title">Ford Ranger XLT 3.2 4x4</h3>
+            <span class="sku">AP-006</span>
+          </div>
+          <p class="car-meta">2018 • 98.500 km • Automático • Diesel</p>
+          <ul class="car-tags">
+            <li>4x4 reduzida</li>
+            <li>Controle de descida</li>
+          </ul>
+          <div class="car-foot">
+            <div class="car-price"><strong>R$ 149.900</strong><span>à vista</span></div>
+            <div class="car-actions">
+              <a class="btn btn-primary" target="_blank" rel="noopener noreferrer"
+                 href="https://wa.me/5532988772482?text=Tenho%20interesse%20na%20Ranger%202018%20(AP-006)">WhatsApp</a>
+              <a class="btn btn-ghost" href="#contato">Detalhes</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 7 — Jeep Renegade -->
+      <article class="car-card" id="car-ap-007">
+        <a class="car-media" href="#contato" aria-label="Ver Jeep Renegade 2020, código AP-007">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Jeep_Renegade_FL_IMG_3325.jpg/1280px-Jeep_Renegade_FL_IMG_3325.jpg"
+               alt="Jeep Renegade, traseira 3/4 (facelift)" loading="lazy" />
+          <span class="badge status">Seminovo</span>
+        </a>
+        <div class="car-body">
+          <div class="car-head">
+            <h3 class="car-title">Jeep Renegade Longitude 1.8</h3>
+            <span class="sku">AP-007</span>
+          </div>
+          <p class="car-meta">2020 • 45.300 km • Automático • Flex</p>
+          <ul class="car-tags">
+            <li>Multimídia</li>
+            <li>Start/Stop</li>
+          </ul>
+          <div class="car-foot">
+            <div class="car-price"><strong>R$ 92.700</strong><span>à vista</span></div>
+            <div class="car-actions">
+              <a class="btn btn-primary" target="_blank" rel="noopener noreferrer"
+                 href="https://wa.me/5532988772482?text=Tenho%20interesse%20no%20Renegade%202020%20(AP-007)">WhatsApp</a>
+              <a class="btn btn-ghost" href="#contato">Detalhes</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 8 — Hyundai HB20 -->
+      <article class="car-card" id="car-ap-008">
+        <a class="car-media" href="#contato" aria-label="Ver Hyundai HB20 2022, código AP-008">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Hyundai_HB20_Unique_2019.jpg/1280px-Hyundai_HB20_Unique_2019.jpg"
+               alt="Hyundai HB20 1.0, vista 3/4 dianteira" loading="lazy" />
+          <span class="badge status">Seminovo</span>
+        </a>
+        <div class="car-body">
+          <div class="car-head">
+            <h3 class="car-title">Hyundai HB20 1.0 Vision</h3>
+            <span class="sku">AP-008</span>
+          </div>
+          <p class="car-meta">2022 • 22.400 km • Manual • Flex</p>
+          <ul class="car-tags">
+            <li>Baixo consumo</li>
+            <li>Revisões na concessionária</li>
+          </ul>
+          <div class="car-foot">
+            <div class="car-price"><strong>R$ 69.800</strong><span>à vista</span></div>
+            <div class="car-actions">
+              <a class="btn btn-primary" target="_blank" rel="noopener noreferrer"
+                 href="https://wa.me/5532988772482?text=Tenho%20interesse%20no%20HB20%202022%20(AP-008)">WhatsApp</a>
+              <a class="btn btn-ghost" href="#contato">Detalhes</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <!-- Seção Sobre -->
+  <section class="container about section" id="sobre" aria-label="Sobre a AutoPrime">
+    <header>
+      <h2>Sobre a AutoPrime</h2>
+      <p class="muted">Transparência, procedência e atendimento humano.</p>
+    </header>
+    <p>
+      A <strong>AutoPrime</strong> nasceu em 2015, em Juiz de Fora (MG), da vontade de facilitar
+      a vida de quem compra e vende carro. Começamos com 6 veículos num pequeno showroom,
+      e desde então crescemos mantendo o foco em <em>laudo cautelar</em>, histórico claro e
+      <em>pós-venda</em> próximo. Nosso compromisso é simples: selecionar bons carros, precificar
+      com justiça e atender com respeito.
+    </p>
+    <p>
+      Trabalhamos com veículos periciados, IPVA em dia e garantia. Quer anunciar o seu?
+      <a href="https://wa.me/5532988772482?text=Ol%C3%A1!%20Quero%20anunciar%20meu%20carro."
+         target="_blank" rel="noopener noreferrer">Clique aqui</a>
+      e fale direto com nossa equipe.
+    </p>
+  </section>
+
+  <!-- Seção Contato -->
+  <section class="container contact section" id="contato" aria-label="Fale com a AutoPrime">
+    <header>
+      <h2>Contato</h2>
+      <p class="muted">Tire suas dúvidas, faça uma proposta ou agende uma visita.</p>
+    </header>
+    <div class="contact-grid">
+      <div>
+        <p><strong>Endereço:</strong> Rua Marechal Deodoro, 530 — Centro, Juiz de Fora — MG</p>
+        <p><strong>Telefone:</strong> <a href="tel:+5532988772482">(32) 98877-2482</a></p>
+        <p><strong>E-mail:</strong> <a href="mailto:contato@autoprime.com.br">contato@autoprime.com.br</a></p>
+      </div>
+      <div class="contact-actions">
+        <a class="btn btn-outline" href="tel:+5532988772482">Ligar</a>
+        <a class="btn btn-primary"
+           href="https://wa.me/5532988772482?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20saber%20mais."
+           target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Créditos das imagens (mantido por licença Wikimedia Commons) -->
+  <section class="container credits" aria-label="Créditos das imagens">
+    <p class="muted" style="font-size:.9rem">
+      Imagens dos veículos: Wikimedia Commons (autores e licenças nas respectivas páginas de arquivo).
+    </p>
+  </section>
+
+  <!-- Rodapé -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>AutoPrime</strong>
+        <p class="muted">Rua Marechal Deodoro, 530 — Centro, Juiz de Fora — MG</p>
+      </div>
+      <div class="footer-actions">
+        <a class="btn btn-outline" href="tel:+5532988772482">Ligar</a>
+        <a class="btn btn-primary"
+           href="https://wa.me/5532988772482?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20saber%20mais."
+           target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      </div>
+    </div>
+    <p class="container copy muted">© 2025 AutoPrime. Todos os direitos reservados.</p>
+  </footer>
+
+</body>
+</html>
