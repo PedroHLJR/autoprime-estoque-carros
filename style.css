@@ -362,6 +362,41 @@ a:hover { text-decoration: underline; }
   color: #fff;
 }
 
+/* -------- Filtros de marca (botões controlados pelo JavaScript) -------- */
+/* Linha de botões com quebra automática em telas pequenas */
+.filtros-marca {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  max-width: 960px;
+  margin: var(--space-2) auto 0;
+  justify-content: center;
+}
+
+/* Botão de marca */
+.btn-marca {
+  font-size: .85rem;
+  padding: .45rem .9rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+}
+
+.btn-marca:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+/* Classe "ativo" adicionada/removida pelo JavaScript ao clicar no botão */
+.btn-marca.ativo {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent-2);
+}
+
 /* -------- Preferência de movimento reduzido -------- */
 /* Respeita configuração de acessibilidade do sistema operacional */
 @media (prefers-reduced-motion: reduce) {

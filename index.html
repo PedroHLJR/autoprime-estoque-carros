@@ -39,8 +39,8 @@
       <h1>Encontre seu próximo carro</h1>
       <p class="subtitle">Seminovos com laudo aprovado, IPVA em dia e garantia.</p>
 
-      <!-- Formulário de busca (sem JS nesta versão — projeto de estudo de HTML/CSS) -->
-      <form class="searchbar" role="search" aria-label="Buscar no estoque" action="#estoque">
+      <!-- Formulário de busca com JavaScript — busca em tempo real enquanto o usuário digita -->
+      <form class="searchbar" role="search" aria-label="Buscar no estoque">
         <label class="sr-only" for="q">Buscar por modelo, marca ou código</label>
         <input id="q" name="q" type="search"
                placeholder="Busque por modelo, marca ou código (ex.: Corolla, HB20, AP-001)" />
@@ -56,6 +56,19 @@
 
         <button type="submit" class="btn btn-primary">Buscar</button>
       </form>
+
+      <!-- Botões de filtro por marca — clique para filtrar os cards via JavaScript -->
+      <div class="filtros-marca" aria-label="Filtrar por marca">
+        <button class="btn btn-marca ativo" data-marca="todas">Todas</button>
+        <button class="btn btn-marca" data-marca="Toyota">Toyota</button>
+        <button class="btn btn-marca" data-marca="Honda">Honda</button>
+        <button class="btn btn-marca" data-marca="Chevrolet">Chevrolet</button>
+        <button class="btn btn-marca" data-marca="Fiat">Fiat</button>
+        <button class="btn btn-marca" data-marca="Volkswagen">Volkswagen</button>
+        <button class="btn btn-marca" data-marca="Ford">Ford</button>
+        <button class="btn btn-marca" data-marca="Jeep">Jeep</button>
+        <button class="btn btn-marca" data-marca="Hyundai">Hyundai</button>
+      </div>
 
       <!-- Filtros avançados usando <details>/<summary> — sem JavaScript -->
       <details class="filters">
@@ -124,14 +137,15 @@
   <main id="conteudo" class="container inventory">
     <header class="inventory-header" id="estoque" aria-label="Cabeçalho do estoque">
       <h2>Estoque</h2>
-      <p class="muted">Mostrando <strong>8</strong> carros disponíveis</p>
+      <!-- O JS atualiza esse texto automaticamente conforme o filtro muda -->
+      <p class="muted" id="contador">Mostrando 8 carros disponíveis</p>
     </header>
 
     <!-- Grade responsiva criada com CSS Grid (auto-fit + minmax) -->
     <section class="grid-cars" aria-label="Lista de carros">
 
       <!-- Card 1 — Toyota Corolla -->
-      <article class="car-card" id="car-ap-001">
+      <article class="car-card" id="car-ap-001" data-marca="Toyota">
         <a class="car-media" href="#contato" aria-label="Ver Toyota Corolla 2022, código AP-001">
           <img
             src="https://commons.wikimedia.org/wiki/Special:FilePath/2019_Toyota_Corolla_Altis_(front).jpg?width=1280"
@@ -168,7 +182,7 @@
       </article>
 
       <!-- Card 2 — Honda Civic -->
-      <article class="car-card" id="car-ap-002">
+      <article class="car-card" id="car-ap-002" data-marca="Honda">
         <a class="car-media" href="#contato" aria-label="Ver Honda Civic 2019, código AP-002">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/2019_Honda_Civic_LX%2C_Front_Left%2C_11-03-2020.jpg/1280px-2019_Honda_Civic_LX%2C_Front_Left%2C_11-03-2020.jpg"
                alt="Honda Civic 2019, vista 3/4 dianteira" loading="lazy" />
@@ -197,7 +211,7 @@
       </article>
 
       <!-- Card 3 — Chevrolet Onix -->
-      <article class="car-card" id="car-ap-003">
+      <article class="car-card" id="car-ap-003" data-marca="Chevrolet">
         <a class="car-media" href="#contato" aria-label="Ver Chevrolet Onix 2021, código AP-003">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Chevrolet_Onix_Mk2_RS_2020_in_Maldonado_-_front.jpg/1280px-Chevrolet_Onix_Mk2_RS_2020_in_Maldonado_-_front.jpg"
                alt="Chevrolet Onix RS, vista 3/4 dianteira" loading="lazy" />
@@ -225,7 +239,7 @@
       </article>
 
       <!-- Card 4 — Fiat Toro -->
-      <article class="car-card" id="car-ap-004">
+      <article class="car-card" id="car-ap-004" data-marca="Fiat">
         <a class="car-media" href="#contato" aria-label="Ver Fiat Toro 2020, código AP-004">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/2019_Fiat_Toro_2.0_Volcano_4x4.jpg/1280px-2019_Fiat_Toro_2.0_Volcano_4x4.jpg"
                alt="Fiat Toro Volcano 2.0 Diesel 4x4, vista 3/4 dianteira" loading="lazy" />
@@ -255,7 +269,7 @@
       </article>
 
       <!-- Card 5 — Volkswagen T-Cross -->
-      <article class="car-card" id="car-ap-005">
+      <article class="car-card" id="car-ap-005" data-marca="Volkswagen">
         <a class="car-media" href="#contato" aria-label="Ver VW T-Cross 2021, código AP-005">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/2019_Volkswagen_T-Cross.jpg/1280px-2019_Volkswagen_T-Cross.jpg"
                alt="Volkswagen T-Cross Highline, vista 3/4 dianteira" loading="lazy" />
@@ -283,7 +297,7 @@
       </article>
 
       <!-- Card 6 — Ford Ranger -->
-      <article class="car-card" id="car-ap-006">
+      <article class="car-card" id="car-ap-006" data-marca="Ford">
         <a class="car-media" href="#contato" aria-label="Ver Ford Ranger 2018, código AP-006">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg/1280px-2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg"
                alt="Ford Ranger XLT 3.2 4x4, vista 3/4 dianteira" loading="lazy" />
@@ -311,7 +325,7 @@
       </article>
 
       <!-- Card 7 — Jeep Renegade -->
-      <article class="car-card" id="car-ap-007">
+      <article class="car-card" id="car-ap-007" data-marca="Jeep">
         <a class="car-media" href="#contato" aria-label="Ver Jeep Renegade 2020, código AP-007">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Jeep_Renegade_FL_IMG_3325.jpg/1280px-Jeep_Renegade_FL_IMG_3325.jpg"
                alt="Jeep Renegade, traseira 3/4 (facelift)" loading="lazy" />
@@ -339,7 +353,7 @@
       </article>
 
       <!-- Card 8 — Hyundai HB20 -->
-      <article class="car-card" id="car-ap-008">
+      <article class="car-card" id="car-ap-008" data-marca="Hyundai">
         <a class="car-media" href="#contato" aria-label="Ver Hyundai HB20 2022, código AP-008">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Hyundai_HB20_Unique_2019.jpg/1280px-Hyundai_HB20_Unique_2019.jpg"
                alt="Hyundai HB20 1.0, vista 3/4 dianteira" loading="lazy" />
@@ -434,6 +448,9 @@
     </div>
     <p class="container copy muted">© 2025 AutoPrime. Todos os direitos reservados.</p>
   </footer>
+
+  <!-- JavaScript carregado no final do body para não travar o carregamento da página -->
+  <script src="script.js"></script>
 
 </body>
 </html>
